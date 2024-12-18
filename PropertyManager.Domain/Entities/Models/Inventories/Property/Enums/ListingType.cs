@@ -3,7 +3,7 @@
 
 namespace PropertyManager.Domain.Entities.Models.Inventories.Property.Enums;
 
-public enum PropertyType
+public enum ListingType
 {
     Rental,
     Selling,

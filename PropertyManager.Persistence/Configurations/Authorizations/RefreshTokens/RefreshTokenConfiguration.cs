@@ -10,10 +10,5 @@ public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
     {
         builder.ToTable("RefreshTokens", "admin");
         builder.HasKey(rt => rt.Id);
-
-        builder.HasOne(rt => rt.User)
-            .WithOne()
-            .HasForeignKey<RefreshToken>(rt => rt.UserId)
-            .IsRequired(false);
     }
 }

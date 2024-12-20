@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PropertyManager.Domain.Common.Repositories;
+using PropertyManager.Domain.Common.Shared.Errors;
 using PropertyManager.Domain.Common.Shared.Results;
 using PropertyManager.Domain.Entities.Users.RefreshTokens;
 
@@ -27,7 +28,7 @@ public class RefreshTokenRepository(AppDbContext context) : IRefreshTokenReposit
 
         if (!result)
         {
-            Result<RefreshToken>.FailureResult("Failed to create refresh token");
+            Result<RefreshToken>.FailureResult(Error.Failure("Failed to create refresh token"));
         }
 
         return Result<RefreshToken>.SuccessResult(refreshToken);

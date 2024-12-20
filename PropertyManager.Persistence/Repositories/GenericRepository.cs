@@ -5,8 +5,13 @@ namespace PropertyManager.Persistence.Repositories;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
+#pragma warning disable IDE0032
     private readonly AppDbContext _context;
     private readonly DbSet<T> _dbSet;
+#pragma warning restore IDE0032
+
+    public DbSet<T> DbSet => _dbSet;
+    public AppDbContext Context => _context;
 
     public GenericRepository(AppDbContext context)
     {

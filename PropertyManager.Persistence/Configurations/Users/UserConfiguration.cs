@@ -22,5 +22,11 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasOne(u => u.DeletedBy)
             .WithOne()
             .HasForeignKey<User>(u => u.DeletedById);
+        
+        builder.HasMany(u => u.RefreshTokens)
+            .WithOne(r => r.User)
+            .HasForeignKey(r => r.UserId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
     }
 }

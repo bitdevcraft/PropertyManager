@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using PropertyManager.Domain.Common;
 using PropertyManager.Domain.Entities.Authorizations.Roles;
+using PropertyManager.Domain.Entities.Users.RefreshTokens;
 using PropertyManager.Domain.Entities.ValueObjects;
 
 namespace PropertyManager.Domain.Entities.Users;
@@ -16,6 +17,10 @@ public class User : IdentityUser, IAuditableEntity
     // Role
     public Role? Role { get; set; }
     public string? RoleId { get; set; }
+    
+    
+    // RefreshToken 
+    public ICollection<RefreshToken> RefreshTokens { get; set; } = [];
 
     // Auditable
     public DateTime? CreatedAt { get; set; }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PropertyManager.Domain.Entities.Models.Bookings;
@@ -13,9 +14,11 @@ using PropertyManager.Persistence;
 namespace PropertyManager.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241220075407_BookingStatus")]
+    partial class BookingStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -324,7 +327,7 @@ namespace PropertyManager.Persistence.Migrations
                         new
                         {
                             Id = "7db8bdb6-8ffe-4f73-903f-fe0424d52e10",
-                            ConcurrencyStamp = "09c72f45-0b4f-47df-8b4f-61b15fbf8797",
+                            ConcurrencyStamp = "dbba757c-3bc1-4cd4-9e84-579ea8c00cc0",
                             IsDeleted = false,
                             Name = "SystemAdministrator",
                             NormalizedName = "SYSTEMADMINISTRATOR"
@@ -332,7 +335,7 @@ namespace PropertyManager.Persistence.Migrations
                         new
                         {
                             Id = "530b21d4-4dd9-4749-9444-ee1384d37d38",
-                            ConcurrencyStamp = "fb8939f9-dd53-411d-844c-a3f8abe4da42",
+                            ConcurrencyStamp = "c16a0fdd-0e98-4d84-a1b3-a375ae1547b6",
                             IsDeleted = false,
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
@@ -340,7 +343,7 @@ namespace PropertyManager.Persistence.Migrations
                         new
                         {
                             Id = "c79c336b-5210-411e-b8c5-f6f210d06204",
-                            ConcurrencyStamp = "9cf00316-8903-483c-8b0e-ab1a4e7f45c8",
+                            ConcurrencyStamp = "8135d6d5-f0a7-47b1-8b29-fb159cafbd6e",
                             IsDeleted = false,
                             Name = "User",
                             NormalizedName = "USER"
@@ -874,12 +877,12 @@ namespace PropertyManager.Persistence.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("RefreshTokens", "admin");
                 });
@@ -1002,7 +1005,7 @@ namespace PropertyManager.Persistence.Migrations
                         {
                             Id = "e63a9b1c-2f89-406e-a5dc-d6ebe5cdf05a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3a8da652-6aa3-4801-b57c-5e0eb6a5c62a",
+                            ConcurrencyStamp = "18355fbf-3958-4e17-9b9f-7dd9457b7c5f",
                             Email = "sysadmin@localhost.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
@@ -1010,10 +1013,10 @@ namespace PropertyManager.Persistence.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "SYSADMIN@LOCALHOST.COM",
                             NormalizedUserName = "SYSADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHyf3fEytP2MEWkrzjRnvsQxCRtr95BvKdVQ7MGqX6mhIaoQ99wFYd1Z9O1JUj3Xxg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELyHbHKbCcTTtYwANZFRz1cerG4+Mb187zIpclOJWePQXffJKHZ87ekS0ZCUwPOsQw==",
                             PhoneNumberConfirmed = false,
                             RoleId = "7db8bdb6-8ffe-4f73-903f-fe0424d52e10",
-                            SecurityStamp = "49f6cc36-003c-4586-9d08-ab5f5b63ca5b",
+                            SecurityStamp = "992b9fa8-61e6-4343-8e8f-367ea1daf449",
                             TwoFactorEnabled = false,
                             UserName = "SysAdmin"
                         },
@@ -1021,7 +1024,7 @@ namespace PropertyManager.Persistence.Migrations
                         {
                             Id = "52f9a82a-e4b6-4f67-ae91-2e173aa21a1a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b6611a6f-9c7d-4c3f-978d-80067f860b4e",
+                            ConcurrencyStamp = "e7ae3c98-a5fa-4c63-8543-4ef474bccb91",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
@@ -1029,10 +1032,10 @@ namespace PropertyManager.Persistence.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "DEMOADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMMgQo1y2R9TlnCdjOERqqDvT3gffOD/WyZJaBVHVV9BCneKdZDIyEpMunZokRcZTw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELvqEAol2C4IG0bLxilpirl7HtYGFKpcyEHvZQY/Zg+3u5+vFHUc9d4ZdpQaCAczUg==",
                             PhoneNumberConfirmed = false,
                             RoleId = "530b21d4-4dd9-4749-9444-ee1384d37d38",
-                            SecurityStamp = "37ff4fa6-5d28-4e5c-afc7-d5b1a19e26cb",
+                            SecurityStamp = "88bfb9f8-160f-49b6-8778-cd971ca2eb65",
                             TwoFactorEnabled = false,
                             UserName = "DemoAdmin"
                         },
@@ -1040,7 +1043,7 @@ namespace PropertyManager.Persistence.Migrations
                         {
                             Id = "a901fdf4-edcb-4b6d-9a65-40df5b062f24",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d08daa79-1cc4-4135-8a30-c647b05e0ab6",
+                            ConcurrencyStamp = "93536d9f-a060-46f7-be67-bd15ef011c92",
                             Email = "user@localhost.com",
                             EmailConfirmed = false,
                             IsDeleted = false,
@@ -1048,10 +1051,10 @@ namespace PropertyManager.Persistence.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@LOCALHOST.COM",
                             NormalizedUserName = "DEMOUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEQR2ANu/wyqnnTd3VCPkGi+9eC7423RulKIDRzRbdhdYCdQPMUa4abFURwcOAIRTw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECWkvZp8e6HcGsc5IV3Lg3SGxX0eKW5+wziegf1j5Ma12VkFgUGOIb873dKY2Q8DbA==",
                             PhoneNumberConfirmed = false,
                             RoleId = "c79c336b-5210-411e-b8c5-f6f210d06204",
-                            SecurityStamp = "eb2450c1-ad53-4dcf-a8cd-4c751972d4df",
+                            SecurityStamp = "ddda9485-17f1-45a2-8de2-2e87f1bc42ea",
                             TwoFactorEnabled = false,
                             UserName = "DemoUser"
                         });
@@ -1386,10 +1389,8 @@ namespace PropertyManager.Persistence.Migrations
             modelBuilder.Entity("PropertyManager.Domain.Entities.Users.RefreshTokens.RefreshToken", b =>
                 {
                     b.HasOne("PropertyManager.Domain.Entities.Users.User", "User")
-                        .WithMany("RefreshTokens")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithOne()
+                        .HasForeignKey("PropertyManager.Domain.Entities.Users.RefreshTokens.RefreshToken", "UserId");
 
                     b.Navigation("User");
                 });
@@ -1502,11 +1503,6 @@ namespace PropertyManager.Persistence.Migrations
             modelBuilder.Entity("PropertyManager.Domain.Entities.Models.Inventories.Property.Property", b =>
                 {
                     b.Navigation("Availabilities");
-                });
-
-            modelBuilder.Entity("PropertyManager.Domain.Entities.Users.User", b =>
-                {
-                    b.Navigation("RefreshTokens");
                 });
 
             modelBuilder.Entity("PropertyManager.Domain.Metadata.ObjectMetadata", b =>

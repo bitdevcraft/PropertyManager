@@ -1,4 +1,6 @@
-﻿namespace PropertyManager.Domain.Common.Shared.Results;
+﻿using PropertyManager.Domain.Common.Shared.Errors;
+
+namespace PropertyManager.Domain.Common.Shared.Results;
 
 public class Result<T>
 {
@@ -6,9 +8,9 @@ public class Result<T>
 
     public T? Value { get; private set; }
 
-    public List<string> Errors { get; private set; }
+    public List<Error> Errors { get; private set; }
 
-    protected Result(bool success, T? value, List<string>? errors)
+    protected Result(bool success, T? value, List<Error>? errors)
     {
         Success = success;
         Value = value;
@@ -20,12 +22,12 @@ public class Result<T>
         return new Result<T>(true, value, null);
     }
 
-    public static Result<T> FailureResult(List<string> errors)
+    public static Result<T> FailureResult(List<Error> errors)
     {
         return new Result<T>(false, default, errors);
     }
 
-    public static Result<T> FailureResult(string error)
+    public static Result<T> FailureResult(Error error)
     {
         return FailureResult([error]);
     }

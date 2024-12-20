@@ -40,5 +40,7 @@ public class PaymentPlanMilestone : BaseEntity
 
     public PaymentPlan? PaymentPlan { get; set; }
     public string? PaymentPlanId { get; set; }
-    
+
+    public ICollection<PaymentPlanFee> Fees { get; set; } = [];
+
 }

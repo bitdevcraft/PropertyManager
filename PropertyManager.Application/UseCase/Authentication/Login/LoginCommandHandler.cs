@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using PropertyManager.Application.Abstraction.Jwt;
 using PropertyManager.Application.Abstraction.Messaging;
 using PropertyManager.Domain.Common.Repositories;
+using PropertyManager.Domain.Common.Shared.Errors;
 using PropertyManager.Domain.Common.Shared.Results;
 using PropertyManager.Domain.Entities.Users;
 using PropertyManager.Domain.Entities.Users.RefreshTokens;
@@ -25,7 +26,7 @@ public class LoginCommandHandler(
 
         if (user == null || !await _userManager.CheckPasswordAsync(user, request.Login.Password))
         {
-            return Result<TokenResponse>.FailureResult("login_failure");
+            return Result<TokenResponse>.FailureResult(Error.Unauthorized(description: "Invalid username or password"));
         }
 
         string jwtToken = _jwtProvider.GenerateToken(user);

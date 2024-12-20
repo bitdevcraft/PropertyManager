@@ -17,6 +17,20 @@ Content-Type: application/json
     client.global.set("auth_token", response.body);
     client.log(client.global.get("auth_token"))
 %}
+### Login System Admin v2
+POST {{localhost}}/api/Auth/loginV2
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username" : "{{user.username}}",
+  "password" : "{{user.password}}"
+}
+
+> {%
+    client.global.set("auth_token", response.body);
+    client.log(client.global.get("auth_token"))
+%}
 
 ### Refresh Token 
 POST {{localhost}}/api/Auth/refresh-token
@@ -35,8 +49,6 @@ Content-Type: application/json
   "email": "ryan@testcom"
 }
 
-
-
 ### Login the new Register
 POST {{localhost}}/api/Auth/login
 Accept: application/json
@@ -46,3 +58,47 @@ Content-Type: application/json
   "username": "ryan1",
   "password": "Administrator1!"
 }
+
+### Incorrect Password Login
+POST {{localhost}}/api/Auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "ryan1",
+  "password": "Administrator3!"
+}
+
+> {%
+    client.assert(response.status == 401);
+%}
+
+### Register Duplicate User
+POST {{localhost}}/api/Auth/register
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "ryan1",
+  "password": "Administrator1!",
+  "email": "ryan@testcom"
+}
+
+> {%
+    client.assert(response.status == 400);
+%}
+
+### Register Validation Error
+POST {{localhost}}/api/Auth/register
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "",
+  "password": "",
+  "email": "ryantestcom"
+}
+
+> {%
+    client.assert(response.status == 400);
+%}

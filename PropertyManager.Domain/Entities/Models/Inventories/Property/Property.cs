@@ -2,9 +2,7 @@
 // All Rights Reserved.
 
 using PropertyManager.Domain.Common;
-using PropertyManager.Domain.Entities.Models.Inventories.Base;
 using PropertyManager.Domain.Entities.Models.Inventories.Projects;
-using PropertyManager.Domain.Entities.Models.Inventories.Property.Enums;
 
 namespace PropertyManager.Domain.Entities.Models.Inventories.Property;
 
@@ -14,19 +12,43 @@ public class Property : BaseEntity
 
     public string? ProjectId { get; set; }
     public Project? Project { get; set; }
-    
+
     // Rental
     public TimeSpan TimeIn { get; set; }
     public TimeSpan TimeOut { get; set; }
     public ICollection<Rental> Availabilities { get; set; } = [];
-
-
+    
     // General Property Information
-    public string? PropertyType { get; set; } // Unit, Villa, Plot
-    public string? PropertyName { get; set; }
-    public string? ListingType { get; set; } // For Sale, For Rent
-    public string? PropertyId { get; set; }
-    public string? PropertyStatus { get; set; } // Available, Sold, Rented, etc.
+    
+    /// <summary>
+    /// Property Type
+    /// <example>
+    ///  - Unit
+    ///  - Villa
+    ///  - Plot
+    /// </example>
+    /// </summary>
+    public string? PropertyType { get; set; } 
+    
+    /// <summary>
+    /// Property Listing Type
+    /// - For Sale
+    /// - For Rent
+    /// </summary>
+    public string? ListingType { get; set; }
+    
+    /// <summary>
+    /// Property Status
+    /// - Draft
+    /// - Available
+    /// - Sold
+    /// - Rented
+    /// - Hold
+    /// - Unavailable
+    /// - Not for Sale
+    /// </summary>
+    public string? PropertyStatus { get; set; } = "Draft"; 
+    public bool IsListed => PropertyStatus == "Available" && ListingType is not null;
 
     // Location Details
     public string? Country { get; set; }

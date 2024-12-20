@@ -1,9 +1,9 @@
-// Copyright (c) Ryan Capio.
+﻿// Copyright (c) Ryan Capio.
 // All Rights Reserved.
-
 
 namespace PropertyManager.Domain.Common.Repositories;
 
-public interface IProjectRepository
+public class IPaymentPlanFeeRepository
 {
+    
 }

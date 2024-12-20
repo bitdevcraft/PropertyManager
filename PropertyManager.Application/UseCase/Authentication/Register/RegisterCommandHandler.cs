@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using PropertyManager.Application.Abstraction.Messaging;
+using PropertyManager.Domain.Common.Shared.Errors;
 using PropertyManager.Domain.Common.Shared.Results;
 using PropertyManager.Domain.Entities.Users;
 
@@ -14,7 +15,7 @@ public class RegisterCommandHandler(UserManager<User> userManager) : ICommandHan
         IdentityResult result = await userManager.CreateAsync(user, request.Register.Password);
 
         return !result.Succeeded
-            ? Result.FailureResult("Failed to create user")
+            ? Result.FailureResult(Error.Failure(description: "Failed to create user"))
             : Result.SuccessResult();
     }
 }

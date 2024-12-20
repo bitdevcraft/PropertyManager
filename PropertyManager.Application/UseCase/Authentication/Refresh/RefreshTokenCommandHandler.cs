@@ -3,6 +3,7 @@ using PropertyManager.Application.Abstraction.Jwt;
 using PropertyManager.Application.Abstraction.Messaging;
 using PropertyManager.Application.UseCase.Authentication.Login;
 using PropertyManager.Domain.Common.Repositories;
+using PropertyManager.Domain.Common.Shared.Errors;
 using PropertyManager.Domain.Common.Shared.Results;
 using PropertyManager.Domain.Entities.Users;
 using PropertyManager.Domain.Entities.Users.RefreshTokens;
@@ -25,7 +26,7 @@ public class RefreshTokenCommandHandler(
 
         if (token == null || token.Expires < DateTime.UtcNow || token.IsUsed || token.IsRevoked)
         {
-            return Result<TokenResponse>.FailureResult("Invalid or expired refresh token");
+            return Result<TokenResponse>.FailureResult(Error.Unauthorized(description: "Invalid Token"));
         }
 
         // Mark the token as used
@@ -36,7 +37,7 @@ public class RefreshTokenCommandHandler(
 
         if (user == null)
         {
-            return Result<TokenResponse>.FailureResult("Invalid or expired refresh token");
+            return Result<TokenResponse>.FailureResult(Error.Unauthorized(description: "Invalid Token"));
         }
 
         string jwtToken = _jwtProvider.GenerateToken(user);
